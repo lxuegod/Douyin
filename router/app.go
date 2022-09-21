@@ -11,6 +11,7 @@ func InitRouter() *gin.Engine {
 
 	r.Static("/static", "./static")
 
+	//	分组注册
 	DouyinRouter = r.Group("/douyin")
 
 	FeedRouter()
