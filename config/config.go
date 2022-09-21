@@ -28,12 +28,16 @@ type ServerConfig struct {
 var Conf Config
 
 func init() {
+	//	读取配置文件
 	viper.SetConfigFile("./config/config.yaml")
 
+	//	监控配置文件
 	viper.WatchConfig()
+	//	加载配置文件
 	if err := viper.ReadInConfig(); err != nil {
 		panic(fmt.Errorf("config Read err: %v", err))
 	}
+	//	反序列化
 	err := viper.Unmarshal(&Conf)
 	if err != nil {
 		panic(fmt.Errorf("config Set err: %v", err))
