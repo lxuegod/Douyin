@@ -7,8 +7,8 @@ import (
 )
 
 func CommitList(user_id int64) (video_list []storage.VideoResponse, err error) {
-	log.Println(user_id)
-	idList, err := model.FavoriteList(user_id)
+	//log.Println(user_id)
+	idList, err := model.CommentList(user_id)
 	log.Printf("%#v\n", idList)
 	if err != nil {
 		return
