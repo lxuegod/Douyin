@@ -6,6 +6,7 @@ type Comment struct {
 	User       User   `json:"user" gorm:"foreignKey:UserID;references:ID;"`
 	Content    string `json:"content,omitempty"`
 	CreateDate string `json:"create_date,omitempty"`
+	VideoID    int64
 }
 
 type CommentResponse struct { // 评论响应列表

@@ -34,6 +34,11 @@ var UsersLoginInfo = map[string]User{
 	//},
 }
 
+type Response struct {
+	StatusCode int32  `json:"status_code"`
+	StatusMsg  string `json:"status_msg,omitempty"`
+}
+
 type UserLoginResponse struct {
 	Response
 	UserId int64  `json:"user_id,omitempty"`
@@ -44,77 +49,12 @@ type UserResponse struct {
 	Response
 	User User `json:"user"`
 }
-type Response struct {
-	StatusCode int32  `json:"status_code"`
-	StatusMsg  string `json:"status_msg,omitempty"`
-}
 
-type Video struct {
-	Id            int64     `json:"id,omitempty"`
-	AuthorID      int64     `json:"-"`
-	Author        User      `gorm:"foreignKey:AuthorID;references:ID;" json:"author,omitempty"`
-	PlayUrl       string    `json:"play_url,omitempty"`
-	CoverUrl      string    `json:"cover_url,omitempty"`
-	FavoriteCount int64     `json:"favorite_count"`
-	CommentCount  int64     `json:"comment_count"`
-	IsFavorite    bool      `json:"is_favorite"`
-	Title         string    `json:"title"`
-	CreatedAt     time.Time `json:"created_at,omitempty"`
-}
-
-type Comment struct {
-	Id         int64 `json:"id,omitempty"`
-	UserID     int64
-	User       User   `json:"user" gorm:"foreignKey:UserID;references:ID;"`
-	Content    string `json:"content,omitempty"`
-	CreateDate string `json:"create_date,omitempty"`
-}
-
-type FeedResponse struct {
-	Response
-	VideoList []VideoResponse `json:"video_list,omitempty"`
-	NextTime  int64           `json:"next_time,omitempty"`
-}
-
-//	User 用户信息
+// User 用户信息
 type User struct {
 	ID            int64  `json:"id,omitempty"`
 	UserName      string `json:"name,omitempty" gorm:"column:username; unique"`
 	FollowCount   int64  `json:"follow_count"`
 	FollowerCount int64  `json:"follower_count"`
 	IsFollow      bool   `json:"is_follow"`
-}
-
-// 关注
-type RelationResponse struct {
-	Response
-	UserList []User `json:"user_list,omitempty"`
-}
-
-// 视频响应
-type VideoResponse struct {
-	Id            int64  `json:"id,omitempty"`
-	AuthorID      int64  `json:"-"`
-	Author        User   `gorm:"foreignKey:AuthorID;references:ID;" json:"author"`
-	PlayUrl       string `json:"play_url,omitempty"`
-	CoverUrl      string `json:"cover_url,omitempty"`
-	FavoriteCount int64  `json:"favorite_count"`
-	CommentCount  int64  `json:"comment_count"`
-	IsFavorite    bool   `json:"is_favorite"`
-	Title         string `json:"title"`
-}
-
-// 评论请求
-type CommentActionRequest struct {
-	Token       string
-	VideoID     int64
-	ActionType  bool
-	CommentText string
-	CommentID   int64
-}
-
-// 点赞列表响应
-type FavoriteResponse struct {
-	Response
-	VideoList []VideoResponse `json:"video_list,omitempty"`
 }
